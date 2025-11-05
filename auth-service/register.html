@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth System</title>
+    <title>Register - Auth System</title>
     <style>
         * {
     margin: 0;
@@ -45,26 +45,6 @@ body {
     color: #666;
     font-size: 14px;
     margin-top: 5px;
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .form-group {
@@ -123,26 +103,6 @@ input:focus {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
-}
-
-.btn-secondary {
-    background: transparent;
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-secondary:hover {
-    background: #667eea;
-    color: white;
-}
-
-.btn-logout {
-    background: #dc3545;
-    color: white;
-}
-
-.btn-logout:hover {
-    background: #c82333;
 }
 
 .link {
@@ -223,93 +183,6 @@ input:focus {
     100% { transform: rotate(360deg); }
 }
 
-.dashboard-container {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    padding: 40px;
-    width: 100%;
-    max-width: 800px;
-}
-
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-}
-
-.dashboard-header h2 {
-    color: #333;
-    font-size: 28px;
-}
-
-.user-info {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 30px;
-    border-radius: 12px;
-    color: white;
-    margin-bottom: 30px;
-}
-
-.user-info h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.user-info p {
-    opacity: 0.9;
-    margin: 5px 0;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.info-card {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid #667eea;
-}
-
-.info-card h4 {
-    color: #666;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
-.info-card p {
-    color: #333;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 5px;
-}
-
-.status-active {
-    background: #d4edda;
-    color: #155724;
-}
-
-.status-pending {
-    background: #fff3cd;
-    color: #856404;
-}
-
 .password-toggle {
     position: relative;
 }
@@ -339,41 +212,64 @@ input:focus {
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="container page active">
+    <div class="container">
         <div class="logo">
-            <h1> Auth System</h1>
-            <p>Virtual Card Financial System</p>
+            <h1>Auth System</h1>
+            <p>Create your account</p>
         </div>
 
-        <div id="loginAlert" class="alert"></div>
-        
-        <form id="loginForm">
+        <div id="registerAlert" class="alert"></div>
+
+        <form id="registerForm">
+            <div class="name-group">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" required placeholder="John">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" required placeholder="Doe">
+                </div>
+            </div>
+
             <div class="form-group">
-                <label for="loginEmail">Email Address</label>
-                <input type="email" id="loginEmail" required placeholder="john.doe@example.com">
+                <label for="registerEmail">Email Address</label>
+                <input type="email" id="registerEmail" required placeholder="john.doe@example.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number (Optional)</label>
+                <input type="tel" id="phoneNumber" placeholder="+1234567890">
             </div>
 
             <div class="form-group password-toggle">
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" required placeholder="Enter your password">
-                <button type="button" class="toggle-btn" data-target="loginPassword">Show</button>
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" required placeholder="Min 8 chars, with uppercase, number & special char">
+                <button type="button" class="toggle-btn" data-target="registerPassword">Show</button>
             </div>
 
-            <div class="loading" id="loginLoading">
+            <div class="form-group password-toggle">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required placeholder="Re-enter your password">
+                <button type="button" class="toggle-btn" data-target="confirmPassword">Show</button>
+            </div>
+
+            <div class="loading" id="registerLoading">
                 <div class="spinner"></div>
-                <p>Logging in...</p>
+                <p>Creating account...</p>
             </div>
 
-            <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+            <button type="submit" class="btn btn-primary" id="registerBtn">Create Account</button>
         </form>
 
         <div class="link">
-            Don't have an account? <a href="register.html">Register here</a>
+            Already have an account? <a href="index.html">Login here</a>
         </div>
     </div>
-    
 
-    <script src="/public/js/index.js" defer></script>
+    <script src="/public/js/register.js" defer></script>
 </body>
 </html>
+
+

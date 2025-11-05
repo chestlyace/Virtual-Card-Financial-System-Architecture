@@ -19,7 +19,26 @@ function getPool() {
   return pool;
 }
 
+async function ensureDatabase() {
+  // Connect without selecting database to ensure it exists
+  const conn = await mysql.createConnection({
+    host: config.db.host,
+    port: config.db.port,
+    user: config.db.user,
+    password: config.db.password,
+    multipleStatements: true,
+  });
+  try {
+    await conn.query(`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`);
+  } finally {
+    await conn.end();
+  }
+}
+
 async function initSchema() {
+  // Ensure DB exists before creating tables
+  await ensureDatabase();
+
   const sql = `
     CREATE TABLE IF NOT EXISTS users (
       id CHAR(36) NOT NULL,
@@ -40,5 +59,4 @@ module.exports = {
   getPool,
   initSchema,
 };
-
 

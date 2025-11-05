@@ -17,6 +17,7 @@ router.post('/register', async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(400).json({
       status: 'error',
       message: error.message || 'Registration failed',
@@ -38,6 +39,7 @@ router.post('/login', async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(401).json({
       status: 'error',
       message: error.message || 'Login failed',
