@@ -6,6 +6,8 @@ const path = require('path');
 const config = require('./config/config');
 const authRoutes = require('./routes/auth.routes');
 const usersRoutes = require('./routes/users.routes');
+const cardRoutes = require('./routes/card.routes');
+const transactionRoutes = require('./routes/transaction.routes');
 const { initSchema } = require('./database/mysql');
 
 function createApp() {
@@ -49,6 +51,11 @@ function createApp() {
   // API Routes
   app.use('/v1/api/auth', authRoutes);
   app.use('/v1/api/users', usersRoutes);
+
+  // Register routes
+app.use('/v1/api/cards', cardRoutes);
+app.use('/v1/api/transactions', transactionRoutes);
+app.use('/v1/api/users', usersRoutes);
 
   // Serve static frontend files (index.html, register.html, dashboard.html) from project root
   const staticDir = path.join(__dirname, '..');

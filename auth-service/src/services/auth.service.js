@@ -10,6 +10,7 @@ function toPublicUser(row) {
     email: row.email,
     name: row.name,
     accountStatus: row.account_status,
+    role: row.role || 'user',
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
